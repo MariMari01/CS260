@@ -1,4 +1,5 @@
 #include <string>
+/* Initiates Node class */
 class Node
 {
     public:
@@ -10,7 +11,7 @@ class Node
 };
 
 
-
+/* Initiates Queue class */
 class Queue
 {
     Node* front;
@@ -20,4 +21,5 @@ class Queue
         void enqueue(int data);
         int dequeue();
         void peek();
+        void delete_queue();
 };
