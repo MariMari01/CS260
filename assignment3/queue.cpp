@@ -5,6 +5,7 @@ using std::string;
 /*
 This code defines the features and methods of the Node and Queue class. 
 */
+/* ----------------------------------------------- NODE ------------------------------------------------------------ */
 Node::Node()
 {
     this->ID = 0;
@@ -14,6 +15,7 @@ Node::Node()
 
 string Node::to_string()
 {
+    /* Displays node values. */
     string result = 
     "ID: "    + std::to_string(this->ID) +
     ",Data: " + std::to_string(this->data) +
@@ -22,7 +24,7 @@ string Node::to_string()
     return result;
 }
 
-
+/* ----------------------------------------------- QUEUE ---------------------------------------------------------- */
 
 Queue::Queue()
 { 
@@ -63,10 +65,20 @@ int Queue::dequeue()
     return 0;
 }
 
+/* Peeks at the Node at the front of the Queue. */
 void Queue::peek()
 {
     if (this->front == nullptr)
         std::cout << "the queue is empty!"    << std::endl;
     else
         std::cout << this->front->to_string() << std::endl;
+}
+
+/* Deletes all Nodes inside of the Queue. */
+void Queue::delete_queue()
+{
+    while (this->front != nullptr && this->size != 0)
+    {
+        this->dequeue();
+    }
 }
