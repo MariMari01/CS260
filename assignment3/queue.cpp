@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "queue.hpp"
 using std::string;
 /*
@@ -17,6 +18,7 @@ string Node::to_string()
     "ID: "    + std::to_string(this->ID) +
     ",Data: " + std::to_string(this->data) +
     ",Next: " + std::to_string((long long)(this->next));
+    
     return result;
 }
 
@@ -37,9 +39,8 @@ void Queue::enqueue(int data)
     /* If the current Queue is empty, set the new Node to the front. */
     if (this->front == nullptr)
     {
-        this->front == new_node;
-    }
-    /* If it is not empty, set the new node to be the next of the current final node. */
+        this->front = new_node;
+    }/* If it is not empty, set the new node to be the next of the current final node. */
     else
     {
         Node *temp_node = this->front;
@@ -52,11 +53,20 @@ void Queue::enqueue(int data)
     this->size++;
 }
 
-/* Removes a new node from the front of the Queue. */
+/* Removes the oldest node from the front of the Queue. */
 int Queue::dequeue()
 {
     Node *to_be_deleted = this->front;
     this->front = front->next;
     delete to_be_deleted;
     this->size--;
+    return 0;
+}
+
+void Queue::peek()
+{
+    if (this->front == nullptr)
+        std::cout << "the queue is empty!"    << std::endl;
+    else
+        std::cout << this->front->to_string() << std::endl;
 }
