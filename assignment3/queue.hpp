@@ -14,13 +14,10 @@ class Node
 class Queue
 {
     Node* front;
-    Node* back;
     int size;
-    
     public:
         Queue();
         void enqueue(int data);
         int dequeue();
-        int peek()
+        void peek();
 };
-
