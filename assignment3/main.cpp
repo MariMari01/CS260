@@ -1,9 +1,9 @@
 /* 
 Author: Samuel Garcia Lopez
-Date: 1.29.2024
+Date: 1.31.2024
 
 This program represents a queue. New elements are added to the back of the queue, and elelments are
-taken out from the front of th queue. 
+taken out from the front of the queue. 
  */ 
 #include <iostream>
 #include "queue.hpp"
@@ -18,7 +18,7 @@ int main()
 {
     bool exit = false;
     int choice;
-    Queue *node_queue; 
+    Queue node_queue; 
     enum choices{add = 1, remove, peek, quit};
 
 do
@@ -31,19 +31,20 @@ do
         {
             cout << "What value will this node have?" << endl;
             int node_value = get_int();
-            node_queue->enqueue(node_value);
+            node_queue.enqueue(node_value);
             cout << "New node added to queue!"        << endl;
             break;
         }
         case remove:
         {
-            node_queue->dequeue();
+            node_queue.dequeue();
             cout << "Front node removed!" << endl;
             break;   
         }
         case peek:
         {
-            
+            cout << "Here is the front Node: " << endl;
+            node_queue.peek();
         }
             break;
         case quit:
@@ -70,7 +71,7 @@ void show_menu()
             "|    [1] Add Node to Queue                           |" << endl <<
             "|    [2] Remove Node from Queue                      |" << endl << 
             "|    [3] Peek at front element                       |" << endl <<
-            "|                                                    |" << endl <<
+            "|    [4] Quit                                        |" << endl <<
             "|                                                    |" << endl <<
             "-----------------------------------------------------"  << endl;
 }
@@ -99,5 +100,3 @@ void clear_buffer(int ch)
 {
     while(ch = getchar() != '\n' && ch != EOF);
 }
-
-
