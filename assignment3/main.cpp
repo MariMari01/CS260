@@ -10,6 +10,7 @@ taken out from the front of the queue.
 using std::cout;
 using std::endl;
 
+//Utility functions
 void show_menu();
 void clear_buffer(int ch);
 int get_int();
@@ -25,6 +26,7 @@ do
 {
     show_menu();
     choice = get_int();
+    
     switch (choice)
     {
         case add:
@@ -48,6 +50,7 @@ do
         }
             break;
         case quit:
+            node_queue.delete_queue();
             exit = true;
             break;  
         default:
@@ -57,9 +60,7 @@ do
 } while (exit == false);
 }
 
-
-
-
+/*-------------------------------------------- UTILITY FUNCTIONS ---------------------------------------------- */
 
 /* Shows the user menu containting choices */
 void show_menu()
