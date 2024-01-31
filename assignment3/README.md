@@ -1,1 +1,2 @@
-
+You can check this code working by using the adding and peeking functions, if you add multiple nodes you can delete one and then peek again, the deleted node's next will now be the current front.
+I tested the delete_queue() function by placing it in the remove switch case briefly and then using peek(), when used the every node will be deleted, peek will return an empty queue no matter the amount of nodes previously added.
