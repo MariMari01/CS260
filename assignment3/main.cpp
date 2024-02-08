@@ -22,42 +22,43 @@ int main()
     Queue node_queue; 
     enum choices{add = 1, remove, peek, quit};
 
-do
-{
-    show_menu();
-    choice = get_int();
-    
-    switch (choice)
+    do
     {
-        case add:
+        show_menu();
+        choice = get_int();
+        
+        switch (choice)
         {
-            cout << "What value will this node have?" << endl;
-            int node_value = get_int();
-            node_queue.enqueue(node_value);
-            cout << "New node added to queue!"        << endl;
-            break;
+            case add:
+            {
+                cout << "What value will this node have?" << endl;
+                int node_value = get_int();
+                node_queue.enqueue(node_value);
+                cout << "New node added to queue!"        << endl;
+                break;
+            }
+            case remove:
+            {
+                node_queue.dequeue();
+                cout << "Front node removed!" << endl;
+                break;   
+            }
+            case peek:
+            {
+                cout << "Here is the front Node: " << endl;
+                node_queue.peek();
+            }
+                break;
+            case quit:
+                node_queue.delete_queue();
+                exit = true;
+                break;  
+            default:
+                cout << "Error - Wrong input" << endl;
+                break;
         }
-        case remove:
-        {
-            node_queue.dequeue();
-            cout << "Front node removed!" << endl;
-            break;   
-        }
-        case peek:
-        {
-            cout << "Here is the front Node: " << endl;
-            node_queue.peek();
-        }
-            break;
-        case quit:
-            node_queue.delete_queue();
-            exit = true;
-            break;  
-        default:
-            cout << "Error - Wrong input" << endl;
-            break;
-    }
-} while (exit == false);
+    } while (exit == false);
+    return 0;
 }
 
 /*-------------------------------------------- UTILITY FUNCTIONS ---------------------------------------------- */
