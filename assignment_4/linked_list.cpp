@@ -1,5 +1,5 @@
-
 #include "linked_list.hpp"
+using std::string;
 
 /* --------------------------------------------- NODE DEFINITION --------------------------------------------------- */
 
@@ -10,6 +10,16 @@ Node::Node()
     this->next = nullptr;
 }
 
+string Node::to_string()
+{
+    /* Displays node values. */
+    string result = 
+    "\nPosition: "    + std::to_string(this->position) +
+    "\nData: " + std::to_string(this->data) +
+    "\nNext: " + std::to_string((long long)(this->next)) + "\n";
+    
+    return result;
+}
 /* -------------------------------------------- LINKED LIST DEFINITION -------------------------------------------- */
 
 Linked_list::Linked_list()
@@ -19,7 +29,8 @@ Linked_list::Linked_list()
     this->size = 0;
 }
 
-/* ------------------------------------------------ LINKED LIST METHODS ------------------------------------------- */
+
+
 /* Adds a new Node to the desired position. */
 void Linked_list::add(int value, int position)
 {
@@ -74,7 +85,6 @@ void Linked_list::add(int value, int position)
 }
 
 
-
 /* Deletes a node from the linked list at given position and returns its data value. */
 int Linked_list::remove(int position)
 {
@@ -125,3 +135,22 @@ int Linked_list::remove(int position)
 }
 
 
+/* Gets a node's value without deleting the node */
+int Linked_list::get(int position)
+{
+    Node *temp_node = this->head;
+    //Search for matching position.
+    while (position != temp_node->position && temp_node != nullptr)
+    {
+        temp_node = temp_node->next;
+    }
+    if (temp_node == nullptr)
+    {
+        puts("ERROR - could not find specified node position.");
+        return 0;
+    }
+    else
+    {
+        return temp_node->data;
+    }    
+}
