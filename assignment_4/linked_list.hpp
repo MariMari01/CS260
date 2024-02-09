@@ -4,19 +4,22 @@ class Node
 {
     public:
         Node();
-        int ID;
+        int position;
         int data;
         Node* next;
         std::string to_string();
 };
 
-class linked_list
+class Linked_list
 {
-    Node *new_node;
-    public:
-        linked_list();
-        ~linked_list();
-        void add(int value, int position);
-        int remove(int position);
-        int get(int position):
+    Node *head;
+    Node *tail; 
+    int size;
+public:
+    Linked_list();
+    ~Linked_list();
+    void add(int value, int position);
+    void display();
+    int remove(int position);
+    int get(int position);
 };
