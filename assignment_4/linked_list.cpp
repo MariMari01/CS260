@@ -1,3 +1,4 @@
+#include <iostream>
 #include "linked_list.hpp"
 using std::string;
 
@@ -62,9 +63,11 @@ void Linked_list::add(int value, int position)
     else
     {   
         //Seach for where to insert the node
+        Node *previous;
         Node *temp_node = this->head;
         while (temp_node->position <= new_node->position && temp_node->next != nullptr)
         {
+            previous = temp_node;
             temp_node = temp_node->next;
         }
         //If a node with the same position as an existing node is added, it will replace the existing node.
@@ -76,9 +79,9 @@ void Linked_list::add(int value, int position)
         }
         else
         {
-        //Add the new node
-        new_node->next = temp_node->next;
-        temp_node->next = new_node;
+            //Add the new node
+            new_node->next = previous->next;
+            previous->next = new_node;
         }
     }
     this->size += 1;
@@ -138,13 +141,20 @@ int Linked_list::remove(int position)
 /* Gets a node's value without deleting the node */
 int Linked_list::get(int position)
 {
+    if (this->head == nullptr)
+    {
+        puts("ERROR - list is empty.");
+        return 0;
+    }
+
     Node *temp_node = this->head;
     //Search for matching position.
-    while (position != temp_node->position && temp_node != nullptr)
+    while (temp_node->position != position && temp_node->next != nullptr)
     {
         temp_node = temp_node->next;
     }
-    if (temp_node == nullptr)
+    
+    if (temp_node->position != position)
     {
         puts("ERROR - could not find specified node position.");
         return 0;
@@ -153,4 +163,28 @@ int Linked_list::get(int position)
     {
         return temp_node->data;
     }    
+}
+
+
+
+void Linked_list::display()
+{
+    Node *temp = this->head;
+    while (temp != nullptr)
+    {
+        std::cout << temp->to_string();
+        temp = temp->next;
+    }
+}
+
+
+Linked_list::~Linked_list()
+{
+    Node *temp;
+    while (this->head != nullptr)
+    {
+        temp = this->head;
+        this->head = this->head->next;
+        delete temp;
+    }
 }
