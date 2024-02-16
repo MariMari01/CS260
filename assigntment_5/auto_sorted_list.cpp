@@ -105,7 +105,7 @@ int Auto_sorted_list::remove(int value)
         if (temp_node->data == value)
         {          
             //If the first deleted node is the tail
-            if (temp_node->data == this->tail->data)
+            if (temp_node == this->tail)
             {
                 this->tail = previous;
                 this->tail->next = temp_node->next;
@@ -118,9 +118,9 @@ int Auto_sorted_list::remove(int value)
                 delete temp_node;
                 return position;
             }
-        }
-        return -1;  
-    }   
+        }  
+    }
+    return -1;   
 }
 
 
@@ -130,7 +130,7 @@ int Auto_sorted_list::search(int value)
     int count = 0;
     Node *temp_node = this->head;
 
-    while (temp_node->next != nullptr)
+    while (temp_node != nullptr)
     {
         if (temp_node->data == value)
             count++;
