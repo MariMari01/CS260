@@ -1,6 +1,13 @@
 #include <iostream>
 #include "auto_sorted_list.hpp"
+/*
+Author: Samuel Garcia Lopez
+Date: 2.16.24
+This program is an auto-sorted linked list. The linked list will sort itself using the value of the nodes
+that are added at the moment they are added.
 
+The worst case scenario for the number of operations to find where to add the node will be O(n). In the best case scenario it will be O(1).
+*/
 
 using std::cout;
 using std::endl;
@@ -21,7 +28,7 @@ int main()
     {
         show_menu();
         choice = get_int();
-        
+        //User choice
         switch (choice)
         {
             case insert:
