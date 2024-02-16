@@ -1,5 +1,5 @@
 #include <iostream>
-#include "auto_ordered_list.hpp"
+#include "auto_sorted_list.hpp"
 
 
 using std::cout;
@@ -14,7 +14,7 @@ int main()
 {
     bool exit = false;
     int choice, node_value;
-    Auto_ordered_list ordered_list;
+    Auto_sorted_list sorted_list;
     enum choices{insert = 1, remove, search, display, quit};
 
     do
@@ -28,35 +28,44 @@ int main()
             {
                 cout << "What value will this node have?" << endl;
                 node_value = get_int();
-                ordered_list.insert(node_value);
+                sorted_list.insert(node_value);
                 break;
             }
             case remove:
             {
                 cout << "Remove what value?" << endl;
                 node_value = get_int();
-                ordered_list.remove(node_value);
+                int removed_pos = sorted_list.remove(node_value);
+                if (removed_pos == -1)
+                    cout << "No Node with that value found" << endl;
+                else
+                    cout << "Node with value " << node_value << " removed at position " << removed_pos << "." << endl;
                 break;   
             }
             case search:
             {
                 cout << "What valuse would you like to search for?" << endl;
                 node_value = get_int();
-                cout << ordered_list.search(node_value) << " Nodes with the value " << node_value << "found" << endl;
+                cout << sorted_list.search(node_value) << " Nodes with the value " << node_value << " found" << endl;
             }
                 break;
             case display:
             {
-                ordered_list.display();
+                sorted_list.display();
                 break;
             }
             case quit:
-                ordered_list.~Auto_ordered_list();
+            {
+                sorted_list.~Auto_sorted_list();
                 exit = true;
                 break;  
+            }
             default:
+            {
+                sorted_list.~Auto_sorted_list();
                 cout << "Error - Wrong input" << endl;
                 break;
+            }
         }
     } while (exit == false);
     return 0;
@@ -71,9 +80,9 @@ void show_menu()
             "|                                                    |" << endl <<
             "|    Welcome! This program uses an arbritary list    |" << endl <<
             "|                                                    |" << endl <<
-            "|    [1] insert Node to list                            |" << endl <<
+            "|    [1] Insert Node to list                         |" << endl <<
             "|    [2] Remove Node from list                       |" << endl << 
-            "|    [3] Get value of Node from list                 |" << endl <<
+            "|    [3] Search Nodes                                |" << endl <<
             "|    [4] Display all nodes                           |" << endl <<
             "|    [5] Quit                                        |" << endl <<
             "|                                                    |" << endl <<
