@@ -16,6 +16,9 @@ class Binary_tree
 {
     private:
         Node* root;
+
+        Node* add_helper(Node* current, int data);
+        Node* remove_helper(Node* current, int data);  
     public:
         Binary_tree();
         ~Binary_tree();
@@ -23,8 +26,8 @@ class Binary_tree
         void add(int data);
         void remove(int data);
 
-        int io_traversal(int data);
-        int pos_traversal(int data);
-        int pre_traversal(int data);
-        int bf_traversal(int data);
+        void io_traversal();
+        void pos_traversal();
+        void pre_traversal();
+        void bf_traversal();
 };
