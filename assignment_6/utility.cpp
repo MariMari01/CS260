@@ -14,7 +14,7 @@ void show_menu()
             "|    [1] Add                                         |" << endl <<
             "|    [2] Remove                                      |" << endl << 
             "|    [3] In order traversal                          |" << endl <<
-            "|    [4] Breadth First traversal                     |" << endl <<
+            "|    [4] Breadth First traversal[nonfunctional]      |" << endl <<
             "|    [5] Quit                                        |" << endl <<
             "|                                                    |" << endl <<
             "------------------------------------------------------"  << endl;
