@@ -21,6 +21,25 @@ Binary_tree::Binary_tree()
 /* Binary tree destructor. */
 Binary_tree::~Binary_tree()
 {
+    Binary_tree_destroyer(this->root);
+}
+
+/* Destructor helper function. */
+void Binary_tree::Binary_tree_destroyer(Node*&current)
+{
+    if (current == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        //Keep going until you hit node that is a leaf
+        //D E S T R O Y!!! from there
+        Binary_tree_destroyer(current->left);
+        Binary_tree_destroyer(current->right);
+        delete current;
+        current = nullptr; 
+    }
 }
 
 
