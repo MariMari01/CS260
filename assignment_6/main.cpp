@@ -48,6 +48,7 @@ int main()
             case quit:
             {
                 exit = true;
+                tree.~Binary_tree();
                 break;  
             }
             default:
