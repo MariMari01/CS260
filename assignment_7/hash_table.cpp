@@ -18,7 +18,7 @@ int Hash_table::hash(string value)
     {
         key += (int)character;
     }
-    return key % this->capacity;
+    return (key % this->capacity);
 }
 
 bool Hash_table::add(string value)
@@ -26,7 +26,7 @@ bool Hash_table::add(string value)
     bool collsion = false;
     int bucket = hash(value);
     /* Places value in appropiate storage location */
-    if (value == this->storage[bucket])
+    if (this->storage[bucket] == value)
     {
         this->size -= 1;
         collsion = true;
@@ -34,6 +34,15 @@ bool Hash_table::add(string value)
     this->size += 1;
     this->storage[bucket] = value;
     return collsion;
+}
+
+void Hash_table::remove(string value)
+{
+    int value_pos = hash(value);
+    if (this->storage[value_pos] == value)
+    {
+        this->storage[value_pos] = "";
+    }
 }
 
 /* Searches if a value exists inside of the Hashtable. */
@@ -46,4 +55,3 @@ bool Hash_table::search(string value)
     }
     return is_present;        
 }
-
