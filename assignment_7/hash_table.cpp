@@ -1,7 +1,7 @@
 #include "hash_table.hpp"
 
 
-
+/* Hash Table Constructor. */
 Hash_table::Hash_table(int capacity)
 {
     this->capacity = capacity;
@@ -36,22 +36,14 @@ bool Hash_table::add(string value)
     return collsion;
 }
 
-void Hash_table::search()
+/* Searches if a value exists inside of the Hashtable. */
+bool Hash_table::search(string value)
 {
-    
+    bool is_present = false;
+    if (this->storage[hash(value)] == value)
+    {
+        is_present = true;
+    }
+    return is_present;        
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
