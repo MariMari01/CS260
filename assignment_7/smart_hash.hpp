@@ -3,6 +3,7 @@
 
 using std::string;
 
+/* Hash_table class */
 class Hash_table
 {
     private:
@@ -19,13 +20,6 @@ class Hash_table
         bool add(string value);
         void remove(string value);
 
+        void get_storage();
         bool search(string value);
 };
-
-Hash_table::Hash_table(int capacity)
-{
-    this->capacity = capacity;
-    this->size = 0;
-
-    this->storage = new string[this->capacity];
-}
