@@ -1,5 +1,7 @@
 #include "smart_hash.hpp"
-
+#include <iostream>
+using std::cout;
+using std::endl;
 
 /* Hash Table Constructor. */
 Hash_table::Hash_table(int capacity)
@@ -8,6 +10,12 @@ Hash_table::Hash_table(int capacity)
     this->size = 0;
 
     this->storage = new string[this->capacity];
+}
+/* Hash Table Destructor */
+Hash_table::~Hash_table()
+{
+    delete this->storage;
+    this->storage = nullptr; 
 }
 
 /* Hashes the key to determine where to place it in the hash table. */
@@ -35,7 +43,7 @@ int Hash_table::hash2(string key)
 bool Hash_table::add(string key)
 {
     bool collsion = false;
-    int bucket = (hash(key) + hash2(key) % this->capacity);
+    int bucket = ((hash(key) + hash2(key)) % this->capacity);
     /* Places key in appropiate storage location */
     if (this->storage[bucket] == key)
     {
@@ -44,6 +52,7 @@ bool Hash_table::add(string key)
     }
     this->size += 1;
     this->storage[bucket] = key;
+    cout << "added " << key;
     return collsion;
 }
 /* Removes the  */
@@ -61,9 +70,17 @@ bool Hash_table::search(string key)
 {
     bool is_present = false;
     int bucket = (hash(key) + hash2(key)) % this->capacity;
-    if (this->storage[hash(key)] == key)
+    if (this->storage[bucket] == key)
     {
         is_present = true;
     }
     return is_present;        
+}
+
+void Hash_table ::get_storage()
+{
+    for (size_t index = 0; index < this->capacity; index++)
+    {
+        cout << "|" << this->storage[index] << "|" << endl;
+    }
 }
