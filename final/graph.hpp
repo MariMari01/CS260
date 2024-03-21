@@ -23,6 +23,7 @@ class Graph
         Vertex* find_vertext(string vertex_name);
         
         int shortest_path(string begining, string ending);
+        
         int edge_weight(string vertex_1, string vertex_2);
 
         void minimum_span_tree();
