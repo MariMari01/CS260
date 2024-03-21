@@ -5,6 +5,7 @@
 #include "edge.hpp"
 
 using std::vector;
+using std::pair;
 using std::string;
 
 class Graph
@@ -23,8 +24,8 @@ class Graph
         Vertex* find_vertext(string vertex_name);
         
         int shortest_path(string begining, string ending);
-        
         int edge_weight(string vertex_1, string vertex_2);
+        int find_dist(vector<pair<)
 
         void minimum_span_tree();
 
