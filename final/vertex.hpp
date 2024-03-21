@@ -1,10 +1,14 @@
-
+#pragma once
+#include <string>
 #include <vector>
-#include "edge.hpp"
+
 using std::vector;
+using std::string;
 
 struct Vertex
 {
+    string name;
     int value;
-    vector<Edge*> neighbrors; 
+    vector<Vertex*> neighbrors; 
 };
+
