@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <algorithm>
 #include "graph.hpp"
@@ -63,38 +62,48 @@ Vertex* Graph::find_vertext(string vertex_name)
 /* Uses Dijkstra's algorithm to return the shortest possible path between two vertices.*/
 int Graph::shortest_path(string begining, string ending)
 {
-    vector<int> distances;
-    vector<Vertex*> previous;
-    vector<Vertex*> queue;
+    /* Sets INFINITY to the largest possible int. */
+    const int INFINITY = 2147483647;
 
-    for (size_t i = 0; i < size; i++)
+    vector<int> distances(this->size, INFINITY);
+    vector<bool> previous(this->size, false);
+    
+    Vertex* start = find_vertext(begining);
+
+    for (size_t i = 0; i < this->size; i++)
     {
-        if(this->vertices[i]->name == begining)
+        if (this->vertices[i] == start)
         {
-            distances.push_back(0);
+            distances[i] = 0;
         }
-        else
-            distances.push_back(1);
-        previous.push_back(nullptr);
-
-        queue.push_back(vertices[i]);
     }
     
-    sort(queue.begin(), queue.end());
+    
+    sort(queue.begin(), queue.end()); //FIGURE OUT HOW TO MAKE QUEUE
     while (!queue.empty())
     {
         Vertex* current = queue[0];
         queue.erase(queue.begin());
 
-        for (size_t i = 0; i < current->neighbrors.size(); i++)
+        for (size_t i = 0; i < current->neighbors.size(); i++)
         {
-            int path_length = 
-        }
-        
+            int path_length = edge_weight(current->name, current->neighbors[i]->name);
+        }   
     }
-    
-
 }
 
+/* Looks for an edge containing the two vertices provided */
+int Graph::edge_weight(string vertex_1, string vertex_2)
+{
+    Vertex* v1 = find_vertext(vertex_1);
+    Vertex* v2 =  find_vertext(vertex_2);
 
-
+    for (size_t i = 0; i < this->edges.size(); i++)
+    {
+        if ((edges[i]->vertex_1 == v1 && edges[i]->vertext_2 == v2) || (edges[i]->vertex_1 == 2 && edges[i]->vertext_2 == v1))
+        {
+            return edges[i]->weight;
+        }
+    }
+    return 0;
+}
