@@ -1,4 +1,4 @@
-TO DO                           DONE
+TO DO----------------------------DONE
 1. add_vertex function           [X]
 2. add_edge function             [X]
 3. shortest_path                 [ ]
