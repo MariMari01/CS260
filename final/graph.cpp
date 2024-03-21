@@ -4,7 +4,9 @@
 #include "edge.hpp"
 
 using std::vector;
-using std:: sort;
+using std::make_pair;
+using std::sort;
+using std::find_if;
 
 void Graph::add_vertex(string name, int value)
 {
@@ -41,8 +43,8 @@ void Graph::add_edge(string vertex_1, string vertex_2, int weight)
         edge->weight = weight;
 
         /* Put the edge inside of the neighbors vector for both edges */
-        start->neighbrors.push_back(end);
-        end->neighbrors.push_back(start);
+        start->neighbors.push_back(end);
+        end->neighbors.push_back(start);
     }
 }
 
@@ -64,10 +66,10 @@ int Graph::shortest_path(string begining, string ending)
 {
     /* Sets INFINITY to the largest possible int. */
     const int INFINITY = 2147483647;
-
     vector<int> distances(this->size, INFINITY);
     vector<bool> previous(this->size, false);
-    
+    vector<pair<int, Vertex*>> queue;
+
     Vertex* start = find_vertext(begining);
 
     for (size_t i = 0; i < this->size; i++)
@@ -76,18 +78,31 @@ int Graph::shortest_path(string begining, string ending)
         {
             distances[i] = 0;
         }
+        queue.push_back(make_pair(distances[i],vertices[i]));
     }
     
-    
-    sort(queue.begin(), queue.end()); //FIGURE OUT HOW TO MAKE QUEUE
+    int path_length;
+    Vertex* current;
+    int current_dist;
+    int neighbor_dist;
     while (!queue.empty())
     {
-        Vertex* current = queue[0];
+        /* Assignn the element with the smallest distance to current */
+        sort(queue.begin(), queue.end();
+        current_dist = queue[0].first;
+        current = queue[0].second;
         queue.erase(queue.begin());
 
         for (size_t i = 0; i < current->neighbors.size(); i++)
         {
-            int path_length = edge_weight(current->name, current->neighbors[i]->name);
+            path_length = current_dist + edge_weight(current->name, current->neighbors[i]->name);
+            
+            /* Find_if lambda function that finds a vector pair using the second name element of the pair */
+            auto it = find_if(queue.begin(), queue.end(),
+            [i, current](const pair<int, string>&vector_pair){return (vector_pair.second == current->neighbors[i]->name);});
+
+
+            if (path_length < it.first);
         }   
     }
 }
@@ -106,4 +121,9 @@ int Graph::edge_weight(string vertex_1, string vertex_2)
         }
     }
     return 0;
+}
+
+void Graph::minimum_span_tree()
+{
+
 }
