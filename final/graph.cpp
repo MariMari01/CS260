@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -9,9 +8,7 @@ using std::vector;
 using std::make_pair;
 using std::sort;
 using std::cout;
-
-
-
+using std:: endl;
 
 Graph::Graph()
 {
@@ -37,6 +34,20 @@ void Graph::add_vertex(string name, int value)
     }
 }
 
+/* Display all vertices inside of the graph */
+void Graph::display_vertices()
+{
+    for (size_t i = 0; i < this->size; i++)
+    {
+        cout << endl << 
+        "Name: "  << vertices[i]->name << endl << 
+        "Value: " << vertices[i]->value << endl;
+    }
+    
+}
+
+
+
 /* Adds an edge with a specified weight connecting two given vertices */
 void Graph::add_edge(string vertex_1, string vertex_2, int weight)
 {
@@ -45,7 +56,7 @@ void Graph::add_edge(string vertex_1, string vertex_2, int weight)
     Vertex* end = find_vertext(vertex_2);
 
     /* If both verticves exist. */
-    if(start != nullptr && end != nullptr && weight > 0)
+    if(start != nullptr && end != nullptr && weight > 0 && edge_weight(vertex_1, vertex_2) == 0)
     {
         /* Make a new edge which connects both vertices. */
         Edge* edge = new Edge;
@@ -53,9 +64,12 @@ void Graph::add_edge(string vertex_1, string vertex_2, int weight)
         edge->vertex_2 = end;
         edge->weight = weight;
 
-        /* Put the edge inside of the neighbors vector for both edges */
+        /* Put the edge's vertices into eachothers neighbors vector*/
         start->neighbors.push_back(end);
         end->neighbors.push_back(start);
+
+        /* Add the edge */
+        this->edges.push_back(edge);
     }
 }
 
@@ -72,17 +86,18 @@ Vertex* Graph::find_vertext(string vertex_name)
     return nullptr;
 }
 
-void Graph::display_vertices()
+/* Displays all edges inside of the graph */
+void Graph::display_edges()
 {
-    for (size_t i = 0; i < this->size; i++)
+    for (size_t i = 0; i < this->edges.size(); i++)
     {
-        cout << "Name: " << vertices[i]-> name 
-        << std::endl << "Value: " << vertices[i]->value << std::endl;
+        cout << endl << 
+        "Vertex 1: " << this->edges[i]->vertex_1->name << endl <<
+        "Vertex 2: " << this->edges[i]->vertex_2->name << endl <<
+        "Weight: "   << this->edges[i]->weight << endl;
     }
     
 }
-
-
 
 /* Uses Dijkstra's algorithm to return the shortest possible path between two vertices.*/
 int Graph::shortest_path(string begining, string ending)
@@ -90,7 +105,7 @@ int Graph::shortest_path(string begining, string ending)
     /* Sets INFINITY to the largest possible int. */
     vector<int> distances(this->size, INFINITY);
     vector<bool> searched(this->size, false);
-    vector<pair<int, bool>> queue;
+    vector<Vertex*> queue;
 
     Vertex* start = find_vertext(begining);
 
@@ -100,40 +115,43 @@ int Graph::shortest_path(string begining, string ending)
         {
             distances[i] = 0;
         }
-        queue.push_back(make_pair(distances[i],searched[i]));
+        queue.push_back(vertices[i]);
     }
     
     int path_length;
     int nearest_index;
-
+    Vertex* current_vertex;
+    Vertex* current_neighbor;
     while (!queue.empty())
     {
         nearest_index = nearest(distances, searched);
-        auto current = queue[nearest_index];
-        Vertex* current_vertex = vertices[nearest_index];
+        current_vertex = queue[nearest_index];
 
         queue.erase(queue.begin() + nearest_index);
+        distances.erase(distances.begin() + nearest_index);
+
+            if (vertices[nearest_index]->name == ending || searched[nearest_index] == true)
+            {
+                return distances[nearest_index];
+            }
 
 
         for (size_t i = 0; i < this->size; i++)
         {
             /* Ensure that the current edge is a neighbor */
-            if ((edge_weight(current_vertex->name, this->vertices[i]->name) != 0) && (searched[i] == false))
+            if ((edge_weight(current_vertex->name, this->vertices[i]->name) != 0) && (find(queue.begin(), queue.end(), vertices[i]) != queue.end()))
             {
-                Vertex* current_neighbor = this->vertices[i];
+                cout << "hi?";
+                current_neighbor = this->vertices[i];
 
                 int neighbor_distance = edge_weight(current_vertex->name, current_neighbor->name);
 
-                path_length = current.first + neighbor_distance;
+                path_length = distances[nearest_index] + neighbor_distance;
 
                 if (path_length < distances[i])
                 {
                     distances[i] = path_length;
                     searched[i] = true;
-                }
-                if (vertices[i]->name == ending)
-                {
-                    return distances[i];
                 }
             }
         }   
@@ -150,13 +168,15 @@ int Graph::nearest(vector<int>dist, vector<bool>searched)
     for (size_t i = 0; i < this->size; i++)
     {
         if (searched[i] == false && dist[i] < smallest_dist)
+        {
             smallest_dist = dist[i];
             nearest = i;
+        }
     }
     return nearest;
 }
 
-/* Looks for an edge containing the two vertices provided and returns it's weight*/
+/* Looks for an edge containing the two vertices provided and returns it's weight, returns 0 if edge does not exist*/
 int Graph::edge_weight(string vertex_1, string vertex_2)
 {
     Vertex* v1 = find_vertext(vertex_1);
@@ -185,22 +205,25 @@ void Graph::minimum_span_tree()
     }
     
     sort(edge_weights.begin(), edge_weights.end());
-
-    while (visited.size() <= this->size)
+    
+    Vertex* edge_vertex_1;
+    Vertex* edge_vertex_2;
+    while (visited.size() < this->size)
     {
         for (size_t i = 0; i < this->edges.size(); i++)
         {
-            Vertex* edge_vertex_1 = edge_weights[i].second->vertex_1;
-            Vertex* edge_vertex_2 = edge_weights[i].second->vertex_2;  
+            edge_vertex_1 = edge_weights[i].second->vertex_1;
+            edge_vertex_2 = edge_weights[i].second->vertex_2;  
 
-            if (!(find(visited.begin(), visited.end(), edge_vertex_1) != visited.end()) && !(find(visited.begin(), visited.end(), edge_vertex_2) != visited.end()))
+            if ((find(visited.begin(), visited.end(), edge_vertex_1) == visited.end()) || (find(visited.begin(), visited.end(), edge_vertex_2) == visited.end()))
             {
-                visited.push_back(edge_vertex_1);
-                visited.push_back(edge_vertex_2);
+                if(find(visited.begin(), visited.end(), edge_vertex_1) == visited.end())
+                    visited.push_back(edge_vertex_1);
+                if(find(visited.begin(), visited.end(), edge_vertex_2) == visited.end())
+                    visited.push_back(edge_vertex_2);
 
-                cout << edge_vertex_1->name << "---" << this->edges[i]->weight << "---";  
+                cout << edge_vertex_1->name << "---" << edge_weights[i].first << "---" << edge_vertex_2->name << endl;  
             }
         }
     }
-    cout << visited.back()->name;
 }
