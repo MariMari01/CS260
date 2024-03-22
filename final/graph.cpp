@@ -8,6 +8,7 @@ using std::make_pair;
 using std::sort;
 using std::find_if;
 
+/* Add a vertex to the graph */
 void Graph::add_vertex(string name, int value)
 {
     /* Ensure a vertex with this name does not already exist */
@@ -34,7 +35,7 @@ void Graph::add_edge(string vertex_1, string vertex_2, int weight)
     Vertex* end = find_vertext(vertex_2);
 
     /* If both verticves exist. */
-    if(start != nullptr && end != nullptr)
+    if(start != nullptr && end != nullptr && weight > 0)
     {
         /* Make a new edge which connects both vertices. */
         Edge* edge = new Edge;
@@ -65,10 +66,9 @@ Vertex* Graph::find_vertext(string vertex_name)
 int Graph::shortest_path(string begining, string ending)
 {
     /* Sets INFINITY to the largest possible int. */
-    const int INFINITY = 2147483647;
     vector<int> distances(this->size, INFINITY);
-    vector<bool> previous(this->size, false);
-    vector<pair<int, Vertex*>> queue;
+    vector<bool> searched(this->size, false);
+    vector<pair<int, bool>> queue;
 
     Vertex* start = find_vertext(begining);
 
@@ -78,33 +78,58 @@ int Graph::shortest_path(string begining, string ending)
         {
             distances[i] = 0;
         }
-        queue.push_back(make_pair(distances[i],vertices[i]));
+        queue.push_back(make_pair(distances[i],searched[i]));
     }
     
     int path_length;
-    Vertex* current;
-    int current_dist;
-    int neighbor_dist;
+    int nearest_index;
+
     while (!queue.empty())
     {
-        /* Assignn the element with the smallest distance to current */
-        sort(queue.begin(), queue.end();
-        current_dist = queue[0].first;
-        current = queue[0].second;
-        queue.erase(queue.begin());
+        nearest_index = nearest(distances, searched);
+        auto current = queue[nearest_index];
+        Vertex* current_vertex = vertices[nearest_index];
 
-        for (size_t i = 0; i < current->neighbors.size(); i++)
+        queue.erase(queue.begin() + nearest_index);
+
+        for (size_t i = 0; i < this->size i++)
         {
-            path_length = current_dist + edge_weight(current->name, current->neighbors[i]->name);
-            
-            /* Find_if lambda function that finds a vector pair using the second name element of the pair */
-            auto it = find_if(queue.begin(), queue.end(),
-            [i, current](const pair<int, string>&vector_pair){return (vector_pair.second == current->neighbors[i]->name);});
+            /* Ensure that the current edge is a neighbor */
+            if ((edge_weight(current_vertex->name, this->vertices[i]->name) != 0) && (searched[i] == false))
+            {
+                Vertex* current_neighbor = this->vertices[i];
 
+                int neighbor_distance = edge_weight(current_vertex->name, current_neighbor->name);
 
-            if (path_length < it.first);
+                path_length = current.first + neighbor_distance;
+
+                if (path_length < distances[i])
+                {
+                    distances[i] = path_length;
+                    searched[i] = true;
+                }
+                if (vertices[i]->name == ending)
+                {
+                    return distances[i];
+                }
+            }
         }   
     }
+}
+
+/* Helper function that returns the index of the closest vertex */
+int Graph::nearest(vector<int>dist, vector<bool>searched)
+{
+    int smallest_dist = this->INFINITY; 
+    int nearest= 0;
+
+    for (size_t i = 0; i < this->size; i++)
+    {
+        if (searched[i] == false && dist[i] < smallest_dist)
+            smallest_dist = dist[i];
+            nearest = i;
+    }
+    return nearest;
 }
 
 /* Looks for an edge containing the two vertices provided */
