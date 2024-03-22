@@ -128,32 +128,30 @@ int Graph::shortest_path(string begining, string ending)
         current_vertex = queue[nearest_index];
 
         queue.erase(queue.begin() + nearest_index);
-        distances.erase(distances.begin() + nearest_index);
 
-            if (vertices[nearest_index]->name == ending || searched[nearest_index] == true)
-            {
-                return distances[nearest_index];
-            }
-
-
-        for (size_t i = 0; i < this->size; i++)
+        if (current_vertex->name == ending || searched[nearest_index] == true)
         {
-            /* Ensure that the current edge is a neighbor */
-            if ((edge_weight(current_vertex->name, this->vertices[i]->name) != 0) && (find(queue.begin(), queue.end(), vertices[i]) != queue.end()))
+            return distances[nearest_index - 1];
+        }
+
+        for (size_t i = 0; i < queue.size(); i++)
+        {
+            for (size_t j = 0; j < queue.size(); j++)
             {
-                cout << "hi?";
-                current_neighbor = this->vertices[i];
-
-                int neighbor_distance = edge_weight(current_vertex->name, current_neighbor->name);
-
-                path_length = distances[nearest_index] + neighbor_distance;
-
-                if (path_length < distances[i])
+                /* Ensure that the current edge is a neighbor */
+                if ((edge_weight(current_vertex->name, this->vertices[j]->name) != 0))
                 {
-                    distances[i] = path_length;
-                    searched[i] = true;
+                    distances[j] = edge_weight(queue[i]->name, current_neighbor->name);
+
+                    path_length = distances[nearest_index] + distances[j];
+
+                    if (path_length < distances[j])
+                    {
+                        distances[j] = path_length;
+                        searched[j] = true;
+                    }
                 }
-            }
+            }       
         }   
     }
     return 0;
