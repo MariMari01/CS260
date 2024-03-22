@@ -4,5 +4,5 @@ TO DO----------------------------DONE
 3. shortest_path-----------------[X]
 4. min_span_tree-----------------[-]
 5. tests-------------------------[-]
-6. conmplexity analysis----------[-]
+6. complexity analysis-----------[-]
    
