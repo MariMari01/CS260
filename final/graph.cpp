@@ -104,8 +104,12 @@ int Graph::shortest_path(string begining, string ending)
 {
     /* Sets INFINITY to the largest possible int. */
     vector<int> distances(this->size, INFINITY);
+    /* Keeps track of visited vertices. */
     vector<bool> searched(this->size, false);
+    /* Queue to access vertices */
     vector<Vertex*> queue;
+
+    int total_distance = 0; 
 
     Vertex* start = find_vertext(begining);
 
@@ -117,44 +121,32 @@ int Graph::shortest_path(string begining, string ending)
         }
         queue.push_back(vertices[i]);
     }
+
     
-    int path_length;
-    int nearest_index;
-    Vertex* current_vertex;
-    Vertex* current_neighbor;
-    while (!queue.empty())
+    /* Find the vertex with the smallest distance */
+    int smallest_index = nearest(distances, searched);
+    while (queue[smallest_index]->name != ending || searched[smallest_index] != true)
     {
-        nearest_index = nearest(distances, searched);
-        current_vertex = queue[nearest_index];
+        smallest_index = nearest(distances, searched);
+        total_distance += distances[smallest_index];
 
-        queue.erase(queue.begin() + nearest_index);
-
-        if (current_vertex->name == ending || searched[nearest_index] == true)
+        /* For the number of vertex's neighbors */
+        for (size_t i = 0; i < queue[smallest_index]->neighbors.size(); i++)
         {
-            return distances[nearest_index - 1];
-        }
-
-        for (size_t i = 0; i < queue.size(); i++)
-        {
+            /* Check for neighbors */
             for (size_t j = 0; j < queue.size(); j++)
             {
-                /* Ensure that the current edge is a neighbor */
-                if ((edge_weight(current_vertex->name, this->vertices[j]->name) != 0))
+                if (queue[smallest_index]->neighbors[i] == queue[j])
                 {
-                    distances[j] = edge_weight(queue[i]->name, current_neighbor->name);
-
-                    path_length = distances[nearest_index] + distances[j];
-
-                    if (path_length < distances[j])
-                    {
-                        distances[j] = path_length;
-                        searched[j] = true;
-                    }
-                }
-            }       
-        }   
+                    int neighbor_dist = edge_weight(queue[smallest_index]->name, queue[j]->name);
+                
+                    distances[j] = neighbor_dist;
+                }        
+            }
+        }
+        searched[smallest_index] = true;
     }
-    return 0;
+    return total_distance;
 }   
 
 /* Helper function that returns the index of the closest vertex */
