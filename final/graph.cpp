@@ -1,4 +1,6 @@
+
 #include <vector>
+#include <iostream>
 #include <algorithm>
 #include "graph.hpp"
 #include "edge.hpp"
@@ -6,7 +8,15 @@
 using std::vector;
 using std::make_pair;
 using std::sort;
-using std::find_if;
+using std::cout;
+
+
+
+
+Graph::Graph()
+{
+    this->size = 0;
+}
 
 /* Add a vertex to the graph */
 void Graph::add_vertex(string name, int value)
@@ -40,7 +50,7 @@ void Graph::add_edge(string vertex_1, string vertex_2, int weight)
         /* Make a new edge which connects both vertices. */
         Edge* edge = new Edge;
         edge->vertex_1 = start;
-        edge->vertext_2 = end;
+        edge->vertex_2 = end;
         edge->weight = weight;
 
         /* Put the edge inside of the neighbors vector for both edges */
@@ -61,6 +71,18 @@ Vertex* Graph::find_vertext(string vertex_name)
     }
     return nullptr;
 }
+
+void Graph::display_vertices()
+{
+    for (size_t i = 0; i < this->size; i++)
+    {
+        cout << "Name: " << vertices[i]-> name 
+        << std::endl << "Value: " << vertices[i]->value << std::endl;
+    }
+    
+}
+
+
 
 /* Uses Dijkstra's algorithm to return the shortest possible path between two vertices.*/
 int Graph::shortest_path(string begining, string ending)
@@ -92,7 +114,8 @@ int Graph::shortest_path(string begining, string ending)
 
         queue.erase(queue.begin() + nearest_index);
 
-        for (size_t i = 0; i < this->size i++)
+
+        for (size_t i = 0; i < this->size; i++)
         {
             /* Ensure that the current edge is a neighbor */
             if ((edge_weight(current_vertex->name, this->vertices[i]->name) != 0) && (searched[i] == false))
@@ -115,7 +138,8 @@ int Graph::shortest_path(string begining, string ending)
             }
         }   
     }
-}
+    return 0;
+}   
 
 /* Helper function that returns the index of the closest vertex */
 int Graph::nearest(vector<int>dist, vector<bool>searched)
@@ -132,7 +156,7 @@ int Graph::nearest(vector<int>dist, vector<bool>searched)
     return nearest;
 }
 
-/* Looks for an edge containing the two vertices provided */
+/* Looks for an edge containing the two vertices provided and returns it's weight*/
 int Graph::edge_weight(string vertex_1, string vertex_2)
 {
     Vertex* v1 = find_vertext(vertex_1);
@@ -140,7 +164,7 @@ int Graph::edge_weight(string vertex_1, string vertex_2)
 
     for (size_t i = 0; i < this->edges.size(); i++)
     {
-        if ((edges[i]->vertex_1 == v1 && edges[i]->vertext_2 == v2) || (edges[i]->vertex_1 == 2 && edges[i]->vertext_2 == v1))
+        if ((edges[i]->vertex_1 == v1 && edges[i]->vertex_2 == v2) || (edges[i]->vertex_1 == v2 && edges[i]->vertex_2 == v1))
         {
             return edges[i]->weight;
         }
@@ -148,7 +172,35 @@ int Graph::edge_weight(string vertex_1, string vertex_2)
     return 0;
 }
 
+/* Creates a Minimum Spanning Tree using Kruskal's algorithm */
 void Graph::minimum_span_tree()
 {
+    vector<Vertex*> visited;
+    vector<pair<int, Edge*>> edge_weights;
 
+    /* Sets the edge_weights vector */
+    for (size_t i = 0; i < this->edges.size(); i++)
+    {
+        edge_weights.push_back(make_pair(this->edges[i]->weight, this->edges[i]));
+    }
+    
+    sort(edge_weights.begin(), edge_weights.end());
+
+    while (visited.size() <= this->size)
+    {
+        for (size_t i = 0; i < this->edges.size(); i++)
+        {
+            Vertex* edge_vertex_1 = edge_weights[i].second->vertex_1;
+            Vertex* edge_vertex_2 = edge_weights[i].second->vertex_2;  
+
+            if (!(find(visited.begin(), visited.end(), edge_vertex_1) != visited.end()) && !(find(visited.begin(), visited.end(), edge_vertex_2) != visited.end()))
+            {
+                visited.push_back(edge_vertex_1);
+                visited.push_back(edge_vertex_2);
+
+                cout << edge_vertex_1->name << "---" << this->edges[i]->weight << "---";  
+            }
+        }
+    }
+    cout << visited.back()->name;
 }
