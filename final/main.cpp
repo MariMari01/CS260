@@ -35,7 +35,7 @@ int main()
 
     cout << endl << 
     "Attempting to add a vertex with a name already in use" << endl
-    << "Expected result: Nothing happening" << endl;
+    << "Expected result: no new vertices added or old ones modified" << endl;
 
     graph.add_vertex("A", 9);
     graph.display_vertices();
@@ -55,13 +55,24 @@ int main()
 
     cout << endl << 
     "Adding edge that already exists" << endl <<
-    "Expected result: nothing happening" << endl;
+    "Expected result: no new edges added or old edges changed" << endl;
 
     graph.add_edge("B", "A", 60);
 
     graph.display_edges();
 
-    /* Shortes Path tests */
+    /* Shortest Path tests */
+    cout << endl <<
+    "--- SHORTEST PATH ---" << endl;
+
+    cout << endl <<
+    "Shortest Path between {B,C}: " <<
+    graph.shortest_path("B","C") << endl <<
+    "Shortest Path between {A,B}: " <<
+    graph.shortest_path("A","B") << endl <<
+    "Shortest Path between {C,D}: " <<
+    graph.shortest_path("C","D") << endl;
+
 
     /* Minimum Spanning Tree tests */
     cout << endl << 
