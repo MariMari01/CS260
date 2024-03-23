@@ -5,6 +5,13 @@ TO DO----------------------------DONE
 4. min_span_tree------------------[X]
 5. tests--------------------------------[X]
 6. complexity analysis------------[-]
-7. design--------------------------[~] [being added onto as I go]
+7. design--------------------------[X]
    
 Nearly done! Adding extra documentation and complexity analysis!
+
+
+
+1. ADD VERTEX FUNCTION
+   FULLFILLED AT LINES 19 - 35 IN FILE GRAPH.CPP
+
+   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/add_vertex.png?raw=true)
