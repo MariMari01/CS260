@@ -15,6 +15,19 @@ Graph::Graph()
     this->size = 0;
 }
 
+Graph::~Graph()
+{
+    for (size_t i = 0; i < this->edges.size(); i++)
+    {
+        delete this->edges[i];
+    }
+    for (size_t i = 0; i < this->size; i++)
+    {
+        delete this->vertices[i];
+    }
+    
+}
+
 /* Add a vertex to the graph */
 void Graph::add_vertex(string name, int value)
 {
@@ -113,6 +126,7 @@ int Graph::shortest_path(string begining, string ending)
 
     Vertex* start = find_vertext(begining);
 
+    /* Intialize the queue and  */
     for (size_t i = 0; i < this->size; i++)
     {
         if (this->vertices[i] == start)
@@ -123,9 +137,11 @@ int Graph::shortest_path(string begining, string ending)
     }
 
     
-    /* Find the vertex with the smallest distance */
+    /* Find the index of the vertex with the smallest distance */
     int smallest_index = nearest(distances, searched);
-    while (queue[smallest_index]->name != ending || searched[smallest_index] != true)
+
+    /* Until we reach the destination vertex */
+    while (queue[smallest_index]->name != ending)
     {
         smallest_index = nearest(distances, searched);
         total_distance += distances[smallest_index];
@@ -149,7 +165,7 @@ int Graph::shortest_path(string begining, string ending)
     return total_distance;
 }   
 
-/* Helper function that returns the index of the closest vertex */
+/* Helper function that returns the index of the smallest unvisited vertex */
 int Graph::nearest(vector<int>dist, vector<bool>searched)
 {
     int smallest_dist = this->INFINITY; 
@@ -188,32 +204,37 @@ void Graph::minimum_span_tree()
     vector<Vertex*> visited;
     vector<pair<int, Edge*>> edge_weights;
 
-    /* Sets the edge_weights vector */
+    /* Sets the edge_weights vector, pair.first contains the weight while pair.second contains the edge */
     for (size_t i = 0; i < this->edges.size(); i++)
     {
         edge_weights.push_back(make_pair(this->edges[i]->weight, this->edges[i]));
     }
-    
+    /* Sort edge_weights according to their weight */
     sort(edge_weights.begin(), edge_weights.end());
     
     Vertex* edge_vertex_1;
     Vertex* edge_vertex_2;
+
+    /* Until we visit very Vertex inside the graph */
     while (visited.size() < this->size)
     {
         for (size_t i = 0; i < this->edges.size(); i++)
         {
             edge_vertex_1 = edge_weights[i].second->vertex_1;
             edge_vertex_2 = edge_weights[i].second->vertex_2;  
-
+            
+            /* if either vertex 1 OR vertex 2 is unvisited */
             if ((find(visited.begin(), visited.end(), edge_vertex_1) == visited.end()) || (find(visited.begin(), visited.end(), edge_vertex_2) == visited.end()))
             {
+                /* If the vertex is unvisited, add it to the visited vector */
                 if(find(visited.begin(), visited.end(), edge_vertex_1) == visited.end())
                     visited.push_back(edge_vertex_1);
                 if(find(visited.begin(), visited.end(), edge_vertex_2) == visited.end())
                     visited.push_back(edge_vertex_2);
-
+                /* Print this edge of the tree and its vertices */
                 cout << edge_vertex_1->name << "---" << edge_weights[i].first << "---" << edge_vertex_2->name << endl;  
             }
         }
     }
 }
+
