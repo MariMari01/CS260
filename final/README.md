@@ -15,6 +15,11 @@ Nearly done! Adding extra documentation and complexity analysis!
 
    ![alt text](https://github.com/MariMari01/CS260/blob/main/final/add_vertex.png?raw=true)
 
-2. Add Edge function fullfilled on lines 52-74 inside file graph.cpp
+2. Add Edge function fulfilled on lines 52-74 inside file graph.cpp
 
    ![alt text](https://github.com/MariMari01/CS260/blob/main/final/add_edge.png?raw=true)
+
+3. Shortest Path function fulfilled on lines 102-153 inside file graph.cpp
+
+   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/shortest_path_1.png?raw=true)
+   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/shortest_path_2.png?raw=true)
