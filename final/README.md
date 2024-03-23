@@ -11,6 +11,10 @@ Nearly done! Adding extra documentation and complexity analysis!
 
 
 
-1. Add Vertex function fullfiled on lines 19 - 35 inside file graph.cpp
+1. Add Vertex function fulfilled on lines 19 - 35 inside file graph.cpp
 
    ![alt text](https://github.com/MariMari01/CS260/blob/main/final/add_vertex.png?raw=true)
+
+2. Add Edge function fullfilled on lines 52-74 inside file graph.cpp
+
+   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/add_edge.png?raw=true)
