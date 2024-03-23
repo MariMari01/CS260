@@ -23,3 +23,7 @@ Nearly done! Adding extra documentation and complexity analysis!
 
    ![alt text](https://github.com/MariMari01/CS260/blob/main/final/shortest_path_1.png?raw=true)
    ![alt text](https://github.com/MariMari01/CS260/blob/main/final/shortest_path_2.png?raw=true)
+
+4. Minimum Spanning Tree function fulfilled on lines 188-226 inside file graph.cpp
+
+   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/minimum_spanning_tree.png?raw=true)
