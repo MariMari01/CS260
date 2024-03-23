@@ -30,8 +30,8 @@ Nearly done! Adding extra documentation and complexity analysis!
 
 
 Tests:
-   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_1.png?raw=true)
-   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_2.png?raw=true)
-   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_3.png?raw=true)
-   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_4.png?raw=true)
-   ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_5.png?raw=true)
+   1. ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_1.png?raw=true)
+   2. ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_2.png?raw=true)
+   3. ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_3.png?raw=true)
+   4. ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_4.png?raw=true)
+   5. ![alt text](https://github.com/MariMari01/CS260/blob/main/final/test_5.png?raw=true)
