@@ -11,7 +11,6 @@ Nearly done! Adding extra documentation and complexity analysis!
 
 
 
-1. ADD VERTEX FUNCTION
-   FULLFILLED AT LINES 19 - 35 IN FILE GRAPH.CPP
+1. Add Vertex function fullfiled on lines 19 - 35 inside file graph.cpp
 
    ![alt text](https://github.com/MariMari01/CS260/blob/main/final/add_vertex.png?raw=true)
