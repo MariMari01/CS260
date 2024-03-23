@@ -9,7 +9,7 @@ TO DO----------------------------DONE
    
 Nearly done! Adding extra documentation and complexity analysis!
 
-
+!![alt text](https://github.com/MariMari01/CS260/blob/main/final/design.png?raw=true)
 
 1. Add Vertex function fulfilled on lines 19 - 35 inside file graph.cpp
 
